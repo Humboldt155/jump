@@ -8,7 +8,7 @@
           <b-form-input placeholder="введите номер или название модели, например 200767 или Дрели аккумуляторные"></b-form-input>
 
           <b-input-group-append>
-            <b-btn variant="secondary">применить</b-btn>
+            <b-btn variant="secondary" @click="onLoadModel">применить</b-btn>
           </b-input-group-append>
 
         </b-input-group>
@@ -19,7 +19,7 @@
           <!-- Информация под строкой поиска: Название модели, подробное инфом ... -->
           <b-row>
             <b-col cols="8">
-              <h4>Наименование модели</h4>
+              <h4>{{ modelAdeo.russian_name }}</h4>
             </b-col>
             <b-col>
               <b-button variant="info" size="sm">
@@ -94,6 +94,8 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   import AnalogsComponent from './model/analogs'
   import AttributesComponent from './model/attributes'
   import ComplementaryComponent from './model/complementary'
@@ -105,6 +107,7 @@
     data () {
       return {
         modelId: this.$store.getters.modelId,
+        modelAdeo: [],
         tabIndex: 0
       }
     },
@@ -115,6 +118,24 @@
         } else {
           return ['bg-light', 'text-secondary']
         }
+      },
+      requestDB: function () {
+        axios.get('http://humboldt155.pythonanywhere.com/api/models/', {
+          params: {
+            id: 'MOD_200767'
+          }
+        })
+          .then(response => {
+            this.modelAdeo = response.data
+          })
+          .catch(e => {
+            this.errors.push(e)
+          })
+      }
+    },
+    computed: {
+      onLoadModel () {
+        this.requestDB()
       }
     },
     components: {
