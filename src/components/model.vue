@@ -15,17 +15,34 @@
 
         <b-container>
           <br>
+
+          <!-- Информация под строкой поиска: Название модели, подробное инфом ... -->
           <b-row>
             <b-col cols="8">
-              <h3>Название модели</h3>
+              <h4>Наименование модели</h4>
             </b-col>
-            <b-col>2 of 3 </b-col>
-            <b-col><b-btn v-b-toggle.collapse1 size="sm" variant="outline-primary"> подробно </b-btn></b-col>
+            <b-col>
+              <b-button variant="info" size="sm">
+                артикулов:
+                <b-badge variant="light">
+                  0
+                </b-badge>
+              </b-button>
+            </b-col>
+            <b-col>
+              <b-btn
+                v-b-toggle.collapse1
+                v-b-tooltip.hover
+                title="информация о модели"
+                size="sm" variant="outline-info">подробно</b-btn>
+            </b-col>
           </b-row>
+
+          <!-- Подробная информация о модели в раскрывающемся списке -->
           <b-collapse id="collapse1" class="mt-2">
             <b-card>
               <p class="card-text">
-                Наименование:<br>
+                МОД_{{ modelId }}<br>
                 fr: De rote te tua<br>
                 en: De rote te tua<br>
                 ru: De rote te tua<br>
@@ -45,10 +62,12 @@
               </p>
             </b-card>
           </b-collapse>
+
         </b-container>
       </b-card>
     </b-container>
 
+    <!-- переключаемые вкладки (Таблица, Аналоги ...) -->
     <b-container fluid>
       <b-card no-body>
         <b-tabs pills card vertical v-model="tabIndex">
@@ -85,6 +104,7 @@
     name: 'model',
     data () {
       return {
+        modelId: this.$store.getters.modelId,
         tabIndex: 0
       }
     },

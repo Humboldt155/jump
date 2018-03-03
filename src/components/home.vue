@@ -1,6 +1,15 @@
 <template>
-  <b-container fluid>
-    Главная
+  <b-container>
+    <b-row class="text-center">
+        <b-col>
+          <h1><br><br><br>Jump<br><br></h1>
+        </b-col>
+    </b-row>
+    <b-row class="text-center">
+        <b-col></b-col>
+        <b-col cols="5"></b-col>
+        <b-col></b-col>
+    </b-row>
   </b-container>
 </template>
 
